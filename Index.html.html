@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposta | Anjo 🍷</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0d0608;
+            --card-bg: rgba(28, 12, 18, 0.75);
+            --wine-primary: #7209b7;
+            --wine-red: #800f2f;
+            --wine-bright: #c77dff;
+            --accent-gold: #ffb703;
+            --text-light: #f8f9fa;
+            --text-muted: #b8b0b5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(128, 15, 47, 0.35) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(114, 9, 183, 0.25) 0%, transparent 40%);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 650px;
+            width: 100%;
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(16px);
+            border-radius: 28px;
+            padding: 40px 30px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            text-align: center;
+            position: relative;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(128, 15, 47, 0.5);
+            border: 1px solid var(--wine-bright);
+            color: var(--wine-bright);
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 6px 16px;
+            border-radius: 50px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            line-height: 1.2;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #ffffff 30%, var(--wine-bright));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .reasons-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-bottom: 35px;
+            text-align: left;
+        }
+
+        .reason-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 18px 20px;
+            border-radius: 18px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .reason-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(199, 125, 255, 0.3);
+        }
+
+        .reason-icon {
+            font-size: 1.6rem;
+            line-height: 1;
+        }
+
+        .reason-text h3 {
+            font-size: 1.05rem;
+            color: var(--text-light);
+            margin-bottom: 4px;
+        }
+
+        .reason-text p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .buttons-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            min-height: 140px;
+            position: relative;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 18px 24px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, var(--wine-red), var(--wine-primary));
+            color: #ffffff;
+            box-shadow: 0 10px 25px rgba(128, 15, 47, 0.4);
+            z-index: 2;
+        }
+
+        .btn-yes:hover {
+            transform: scale(1.03);
+            box-shadow: 0 12px 30px rgba(199, 125, 255, 0.5);
+        }
+
+        .btn-no {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            padding: 12px 20px;
+            max-width: 200px;
+            z-index: 1;
+        }
+
+        .footer-note {
+            margin-top: 25px;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.4);
+            font-style: italic;
+        }
+
+        /* Modal de Sucesso */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: #180914;
+            border: 1px solid var(--wine-bright);
+            border-radius: 24px;
+            padding: 35px 25px;
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 0 40px rgba(199, 125, 255, 0.3);
+        }
+
+        .modal-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--text-light);
+            margin-bottom: 12px;
+        }
+
+        .modal-content p {
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        @media (min-width: 480px) {
+            .container { padding: 50px 40px; }
+            h1 { font-size: 2.8rem; }
+            .buttons-wrapper { flex-direction: row; }
+            .btn-no { position: relative; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <span class="badge">🔥 CONVITE EXCLUSIVO</span>
+        
+        <h1>Anjo, precisamos falar sobre o nosso vinho.</h1>
+        
+        <p class="subtitle">
+            Estudos comprovam que aceitar este convite aumenta em 100% as chances de ter uma noite inesquecível.
+        </p>
+
+        <div class="reasons-grid">
+            <div class="reason-card">
+                <div class="reason-icon">🍷</div>
+                <div class="reason-text">
+                    <h3>O Vinho é por minha conta</h3>
+                    <p>Você só precisa trazer o seu sorriso... e aquele olhar de quem sabe exatamente o perigo que é.</p>
+                </div>
+            </div>
+
+            <div class="reason-card">
+                <div class="reason-icon">😈</div>
+                <div class="reason-text">
+                    <h3>Segundas intenções (respeitosas)</h3>
+                    <p>Sem pressão, mas com a forte suspeita de que a gente vai querer pedir mais uma garrafa.</p>
+                </div>
+            </div>
+
+            <div class="reason-card">
+                <div class="reason-icon">🔥</div>
+                <div class="reason-text">
+                    <h3>Harmonização perfeita</h3>
+                    <p>Vinho bom, papo fluido e aquele clima gostoso que acontece sem pressa nenhuma.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="buttons-wrapper">
+            <button class="btn btn-yes" id="btnYes">ACEITAR O CONVITE 🍷</button>
+            <button class="btn btn-no" id="btnNo">Não, sou difícil 😇</button>
+        </div>
+
+        <p class="footer-note">* Ao clicar em "Aceitar", você concorda em não se responsabilizar pelas consequências do clima que vai rolar.</p>
+    </div>
+
+    <!-- Modal de Confirmação -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <div style="font-size: 3rem; margin-bottom: 10px;">🍷🔥</div>
+            <h2>Sabia que você não ia resistir!</h2>
+            <p>Escolha sensata, Anjo. Prometo que o vinho vai ser bom, mas a companhia vai ser melhor ainda.</p>
+            <a href="#" id="whatsappLink" target="_blank" class="btn btn-yes" style="text-decoration: none;">
+                CONFIRMAR NO WHATSAPP 📲
+            </a>
+        </div>
+    </div>
+
+    <script>
+        const btnYes = document.getElementById('btnYes');
+        const btnNo = document.getElementById('btnNo');
+        const modal = document.getElementById('successModal');
+        const whatsappLink = document.getElementById('whatsappLink');
+
+        // Configuração do WhatsApp
+        // SUBSTITUA O SEU NÚMERO ABAIXO (Formato: 55 + DDD + Número sem espaços)
+        const SEU_NUMERO_WHATSAPP = "5573982027253"; 
+        const MENSAGEM_WHATSAPP = encodeURIComponent("Oi! Aceito o convite do vinho, Anjo aqui. Quando vai ser? 🍷😈");
+
+        whatsappLink.href = `https://wa.me/${SEU_NUMERO_WHATSAPP}?text=${MENSAGEM_WHATSAPP}`;
+
+        // Ação do Botão SIM
+        btnYes.addEventListener('click', () => {
+            modal.style.display = 'flex';
+        });
+
+        // Efeito de fuga no botão NÃO
+        let scaleYes = 1;
+        const moveNoButton = () => {
+            const container = document.querySelector('.container');
+            const containerRect = container.getBoundingClientRect();
+            
+            // Aumenta o botão SIM a cada tentativa de clicar no NÃO
+            scaleYes += 0.15;
+            btnYes.style.transform = `scale(${scaleYes})`;
+
+            // Sorteia nova posição para o botão NÃO dentro do container
+            const newX = Math.random() * (containerRect.width - btnNo.offsetWidth - 40) - (containerRect.width / 2) + (btnNo.offsetWidth / 2);
+            const newY = Math.random() * (containerRect.height - btnNo.offsetHeight - 40) - (containerRect.height / 2) + (btnNo.offsetHeight / 2);
+
+            btnNo.style.position = 'absolute';
+            btnNo.style.left = `${Math.abs(newX)}px`;
+            btnNo.style.top = `${Math.abs(newY)}px`;
+        };
+
+        btnNo.addEventListener('mouseover', moveNoButton);
+        btnNo.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            moveNoButton();
+        });
+    </script>
+</body>
+</html>
